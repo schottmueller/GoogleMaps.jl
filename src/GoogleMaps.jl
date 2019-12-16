@@ -1,6 +1,6 @@
 module GoogleMaps
 
-    import JSON, Requests, ImageMagick
+    import JSON, HTTP, ImageMagick
 
     include("utils.jl")
     include("directions.jl")
