@@ -13,11 +13,13 @@ function requestjson(
         ext::String = "/json";
         kwargs...
     )
-    result = Requests.get(string(api,service,ext); query = Dict(kwargs))
-    resultjson = JSON.parse(Requests.readstring(result))
-    info("REQUEST:{\"uri\":\"", result.request.value.uri, "\", ",
-                  "\"status\": \"", Requests.statuscode(result), "\"}")
-    Requests.statuscode(result) == 400 && warn("ERROR:",resultjson["error"])
+    #result = Requests.get(string(api,service,ext); query = Dict(kwargs))
+    result = HTTP.request("GET",string(api,service,ext); query = Dict(kwargs))    
+    #resultjson = JSON.parse(Requests.readstring(result))
+    resultjson = JSON.parse(String(result.body))
+    #info("REQUEST:{\"uri\":\"", result.request.value.uri, "\", ",
+    #              "\"status\": \"", Requests.statuscode(result), "\"}")
+    #Requests.statuscode(result) == 400 && warn("ERROR:",resultjson["error"])
     resultjson
 end
 
